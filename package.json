@@ -1,0 +1,40 @@
+{
+  "name": "winfall",
+  "version": "1.0.0",
+  "description": "Clicker Game",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack -w",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dareitus/Winfall.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dareitus/Winfall/issues"
+  },
+  "homepage": "https://github.com/dareitus/Winfall#readme",
+  "devDependencies": {
+    "@babel/core": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
+    "@babel/preset-react": "^7.16.5",
+    "babel-loader": "^8.2.3",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.1"
+  },
+  "dependencies": {
+    "axios": "^0.25.0",
+    "express": "^4.17.2",
+    "mongodb": "^4.3.1",
+    "nodemon": "^2.0.15",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
