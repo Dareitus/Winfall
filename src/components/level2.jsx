@@ -20,13 +20,13 @@ class Level2 extends React.Component {
       return( <div></div> );
     } else {
       return (
-        <div className = "L2">
-          <h3>Hire SEIRs</h3>
-          <div>Spend {this.props.genCost} to hire a SEIR.</div>
-          <div>SEIRs generate {this.props.winMulti}wins every {this.props.genSpeed}seconds.</div>
-          <div>Current number of SEIRs: {this.props.numGens} out of max {this.props.genStorage}.</div>
-          <button onClick={this.props.buyGen}>Buy</button>
-          <div className="error">{this.props.genError}</div>
+        <div className="L2">
+          <h3 className="l2head">Hire SEIRs</h3>
+          <div className="lev2a">Spend {this.props.genCost} to hire a SEIR.</div>
+          <div className="lev2b">SEIRs generate {this.props.winMulti}wins every {this.props.genSpeed}seconds.</div>
+          <div className="lev2c">Current number of SEIRs: {this.props.numGens} out of max {this.props.genStorage}.</div>
+          <button className="l2button" onClick={this.props.buyGen}>Buy</button>
+          <div className="l2error">{this.props.genError}</div>
         </div>
       )
     }

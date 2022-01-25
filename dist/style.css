@@ -1,0 +1,282 @@
+html {
+  background-color: gray;
+  font-family: sans-serif;
+}
+
+.error {
+  color: yellow;
+}
+
+.button {
+  background-color: maroon;
+  border-radius: 25px;
+  color:seashell;
+  width: 200px;
+  height: 40px;
+}
+
+.buttonMain {
+  background-color: maroon;
+  grid-area: button;
+  border-radius: 25px;
+  color:seashell;
+  width: 200px;
+  height: 40px;
+  margin-left: 40%;
+  font-weight:bold;
+}
+
+.header {
+    text-align: center;
+    border-radius: 25px;
+    color: black;
+    background:rosybrown;
+    grid-area: header;
+    margin: 10px;
+    padding: 10px;
+}
+
+.l1head{
+  grid-area: l1h;
+  margin: 5px;
+  font-size: 1.4em;
+}
+
+.l1error {
+  color: black;
+  grid-area: l1e;
+  margin: 10px;
+  border-radius: 25px;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight:bold;
+}
+
+.l1button {
+  background-color: maroon;
+  border-radius: 25px;
+  color:seashell;
+  width: 200px;
+  height: 40px;
+  grid-area: l1b;
+  font-weight:bold;
+}
+
+.lev1a {
+  grid-area: lev1a;
+  margin: 5px;
+  font-size: 1.2em;
+}
+
+.lev1b {
+  grid-area: lev1b;
+  margin: 5px;
+  font-size: 1.2em;
+}
+
+.L1 {
+  border-radius: 25px;
+  color: black;
+  background:rosybrown;
+  grid-area: Level1;
+  margin: 10px;
+  padding: 10px;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 30%;
+  grid-template-areas:
+  "l1h l1h"
+  "lev1a lev1a"
+  "lev1b lev1b"
+  "l1b l1e";
+}
+
+.l2head{
+  grid-area: l2h;
+  margin: 5px;
+  font-size: 1.4em;
+}
+
+.l2error {
+  color: black;
+  grid-area: l2e;
+  margin: 10px;
+  border-radius: 25px;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight:bold;
+}
+
+.l2button {
+  background-color: maroon;
+  border-radius: 25px;
+  color:seashell;
+  width: 200px;
+  height: 40px;
+  grid-area: l2b;
+  font-weight:bold;
+}
+
+.lev2a {
+  grid-area: lev2a;
+  margin: 5px;
+  font-size: 1.2em;
+}
+
+.lev2b {
+  grid-area: lev2b;
+  margin: 5px;
+  font-size: 1.2em;
+}
+
+.lev2c {
+  grid-area: lev2c;
+  margin: 5px;
+  font-size: 1.2em;
+}
+
+.L2 {
+  border-radius: 25px;
+  color: black;
+  background:rosybrown;
+  grid-area: Level2;
+  margin: 10px;
+  padding: 10px;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 30%;
+  grid-template-areas:
+  "l2h l2h"
+  "lev2a lev2a"
+  "lev2b lev2b"
+  "lev2c lev2c"
+  "l2b l2e";
+}
+
+.l3head {
+  grid-area: l3h;
+  margin: 5px;
+  font-size: 1.4em;
+}
+
+.l3error {
+  color: black;
+  grid-area: l3e;
+  margin: 10px;
+  border-radius: 25px;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight:bold;
+}
+
+.l3button {
+  background-color: maroon;
+  border-radius: 25px;
+  color:seashell;
+  width: 200px;
+  height: 40px;
+  grid-area: l3b;
+  font-weight:bold;
+}
+
+.lev3a {
+  grid-area: lev3a;
+  margin: 5px;
+  font-size: 1.2em;
+}
+
+.lev3b {
+  grid-area: lev3b;
+  margin: 5px;
+  font-size: 1.2em;
+}
+
+.L3 {
+  border-radius: 25px;
+  color: black;
+  background:rosybrown;
+  grid-area: Level3;
+  margin: 10px;
+  padding: 10px;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 30%;
+  grid-template-areas:
+  "l3h l3h"
+  "lev3a lev3a"
+  "lev3b lev3b"
+  "l3b l3e";
+}
+
+.l4head {
+  grid-area: l4h;
+  margin: 5px;
+  font-size: 1.4em;
+}
+
+.l4error {
+  color: black;
+  grid-area: l4e;
+  margin: 10px;
+  border-radius: 25px;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight:bold;
+}
+
+.l4button {
+  background-color: maroon;
+  border-radius: 25px;
+  color:seashell;
+  width: 200px;
+  height: 40px;
+  grid-area: l4b;
+  font-weight:bold;
+}
+
+.lev4a {
+  grid-area: lev4a;
+  margin: 5px;
+  font-size: 1.2em;
+}
+
+.lev4b {
+  grid-area: lev4b;
+  margin: 5px;
+  font-size: 1.2em;
+}
+
+.L4 {
+  border-radius: 25px;
+  color: black;
+  background:rosybrown;
+  grid-area: Level4;
+  margin: 10px;
+  padding: 10px;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 30%;
+  grid-template-areas:
+  "l4h l4h"
+  "lev4a lev4a"
+  "lev4b lev4b"
+  "l4b l4e";
+}
+
+.playField {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: auto;
+  grid-template-areas:
+  "header header"
+  "button button"
+  "Level1 art"
+  "Level2 art"
+  "Level3 art"
+  "Level4 art"
+  "footer footer";
+  border-radius: 25px;
+  background: rgb(77, 28, 28);
+  margin: 25px;
+  padding: 10px;
+}

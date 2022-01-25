@@ -18,11 +18,11 @@ class Level1 extends React.Component {
     } else {
       return (
         <div className = "L1">
-          <h3>Increase Win Strength</h3>
-          <div>Spend {this.props.multiCost}wins to increase wins earned.</div>
-          <div>Current value per win: {this.props.winMulti}</div>
-          <button onClick={this.props.buyMulti}>Buy</button>
-          <div className="error">{this.props.multiError}</div>
+          <h3 className = "l1head">Increase Win Strength</h3>
+          <div className="lev1a">Spend {this.props.multiCost}wins to increase wins earned.</div>
+          <div className="lev1b">Current value per win: {this.props.winMulti}</div>
+          <button className="l1button" onClick={this.props.buyMulti}>Buy</button>
+          <div className="l1error">{this.props.multiError}</div>
         </div>
       )
     }
