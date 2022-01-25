@@ -13,11 +13,23 @@ app.get('/test', (req, res) => {
 });
 
 //get user route
-app.get('/user', (req, res) => {
-  //check db for record at req.param.username
-  //if record exists, return record
-  //if no record, create record from base state, then return record
+app.get('/user', async (req, res) => {
+  try {
+    const username = req.query.username;
+    const data = await getUser(username);
+    res.status(200).send(data);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
+
+const getUser = async (username) => {
+  try {
+    //Database code goes here - check for existing user, create if new
+  } catch (err) {
+    return err;
+  }
+}
 
 app.post('/user', (req, res) => {
   //take req and update database with new player state
