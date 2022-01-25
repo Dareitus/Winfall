@@ -22,7 +22,7 @@ html {
   color:seashell;
   width: 200px;
   height: 40px;
-  margin-left: 40%;
+  margin-left: 43%;
   font-weight:bold;
 }
 
@@ -263,17 +263,211 @@ html {
   "l4b l4e";
 }
 
+.l5head{
+  grid-area: l5h;
+  margin: 5px;
+  font-size: 1.4em;
+}
+
+.l5error {
+  color: black;
+  grid-area: l5e;
+  margin: 10px;
+  border-radius: 25px;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight:bold;
+}
+
+.l5button {
+  background-color: maroon;
+  border-radius: 25px;
+  color:seashell;
+  width: 200px;
+  height: 40px;
+  grid-area: l5b;
+  font-weight:bold;
+}
+
+.lev5a {
+  grid-area: lev5a;
+  margin: 5px;
+  font-size: 1.2em;
+}
+
+.lev5b {
+  grid-area: lev5b;
+  margin: 5px;
+  font-size: 1.2em;
+}
+
+.L5 {
+  border-radius: 25px;
+  color: black;
+  background:rosybrown;
+  grid-area: Level5;
+  margin: 10px;
+  padding: 10px;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 30%;
+  grid-template-areas:
+  "l5h l5h"
+  "lev5a lev5a"
+  "lev5b lev5b"
+  "l5b l5e";
+}
+
+.l6head{
+  grid-area: l6h;
+  margin: 5px;
+  font-size: 1.4em;
+}
+
+.l6error {
+  color: black;
+  grid-area: l6e;
+  margin: 10px;
+  border-radius: 25px;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight:bold;
+}
+
+.l6button {
+  background-color: maroon;
+  border-radius: 25px;
+  color:seashell;
+  width: 200px;
+  height: 40px;
+  grid-area: l6b;
+  font-weight:bold;
+}
+
+.lev6a {
+  grid-area: lev6a;
+  margin: 5px;
+  font-size: 1.2em;
+}
+
+.lev6b {
+  grid-area: lev6b;
+  margin: 5px;
+  font-size: 1.2em;
+}
+
+.lev6c {
+  grid-area: lev6c;
+  margin: 5px;
+  font-size: 1.2em;
+}
+
+.L6 {
+  border-radius: 25px;
+  color: black;
+  background:rosybrown;
+  grid-area: Level6;
+  margin: 10px;
+  padding: 10px;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 30%;
+  grid-template-areas:
+  "l6h l6h"
+  "lev6a lev6a"
+  "lev6b lev6b"
+  "lev6c lev6c"
+  "l6b l6e";
+}
+
+.l7head{
+  grid-area: l7h;
+  margin: 5px;
+  font-size: 1.4em;
+}
+
+.l7button {
+  background-color: maroon;
+  border-radius: 25px;
+  color:seashell;
+  width: 200px;
+  height: 40px;
+  grid-area: l7b;
+  font-weight:bold;
+}
+
+.lev7a {
+  grid-area: lev7a;
+  margin: 5px;
+  font-size: 1.2em;
+}
+
+.lev7b {
+  grid-area: lev7b;
+  margin: 5px;
+  font-size: 1.2em;
+}
+
+.lev7c {
+  grid-area: lev7c;
+  margin: 5px;
+  font-size: 1.2em;
+}
+
+.L7 {
+  border-radius: 25px;
+  color: black;
+  background:rosybrown;
+  grid-area: Level7;
+  margin: 10px;
+  padding: 10px;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 30%;
+  grid-template-areas:
+  "l7h l7h"
+  "lev7a lev7a"
+  "lev7b lev7b"
+  "lev7c lev7c"
+  "l7b l7b";
+}
+
+.l8button {
+  background-color: maroon;
+  border-radius: 25px;
+  color:seashell;
+  width: 600px;
+  height: 80px;
+  grid-area: l8b;
+  font-weight:bold;
+  align-self: center;
+}
+
+.L8 {
+  border-radius: 25px;
+  color: black;
+  background:rosybrown;
+  grid-area: Level8;
+  margin: 10px;
+  padding: 10px;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 30%;
+  grid-template-areas:
+  "l8b l8b";
+}
+
 .playField {
   display: grid;
-  grid-template-columns: 40% 60%;
+  grid-template-columns: 50%;
   grid-template-rows: auto;
   grid-template-areas:
   "header header"
   "button button"
-  "Level1 art"
-  "Level2 art"
-  "Level3 art"
-  "Level4 art"
+  "Level1 Level5"
+  "Level2 Level6"
+  "Level3 Level7"
+  "Level4 Level8"
   "footer footer";
   border-radius: 25px;
   background: rgb(77, 28, 28);

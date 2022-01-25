@@ -6,7 +6,12 @@ import Level1 from "./level1.jsx";
 import Level2 from "./level2.jsx";
 import Level3 from "./level3.jsx";
 import Level4 from "./level4.jsx";
+import Level5 from "./level5.jsx";
+import Level6 from "./level6.jsx";
+import Level7 from "./level7.jsx";
+import Level8 from "./level8.jsx";
 let genInterval;
+let vicInterval;
 class Game extends React.Component {
   constructor(props) {
     super(props);
@@ -16,6 +21,8 @@ class Game extends React.Component {
       multiError: '',
       speedError: '',
       storageError: '',
+      victoryError: '',
+      ritualError: '',
       username: '',
       totalWins: 0,
       availWins: 0,
@@ -26,8 +33,12 @@ class Game extends React.Component {
       genCost: 50,
       genSpeed: 2,
       speedCost: 150,
-      genStorage: 3,
-      storageCost: 500
+      genStorage: 5,
+      storageCost: 500,
+      victoryCost: 10000,
+      numVictories: 0,
+      numRituals: 0,
+      ascended: false,
     };
     //binds go here
     this.onChange = this.onChange.bind(this);
@@ -38,6 +49,14 @@ class Game extends React.Component {
     this.generateWins = this.generateWins.bind(this);
     this.buySpeed = this.buySpeed.bind(this);
     this.buyStorage = this.buyStorage.bind(this);
+    this.buyVictory = this.buyVictory.bind(this);
+    this.buyRitual = this.buyRitual.bind(this);
+    this.generateVictories = this.generateVictories.bind(this);
+    this.ascend = this.ascend.bind(this);
+  }
+
+  ascend() {
+    this.setState({ascended:true});
   }
 
   buyMulti() {
@@ -50,9 +69,14 @@ class Game extends React.Component {
       this.setState({multiError});
     } else {
       availWins -= multiCost;
-      multiCost *= 1.2;
+      multiCost *= 1.5;
       multiCost = Math.round(multiCost);
-      winMulti += 1;
+      if(winMulti === 1){
+        winMulti++;
+      } else {
+        winMulti *= 1.3;
+        winMulti = Math.round(winMulti);
+      }
       multiError = '';
       this.setState({availWins, multiCost, winMulti, multiError});
     }
@@ -72,7 +96,7 @@ class Game extends React.Component {
       this.setState({genError});
     } else{
       availWins -= genCost;
-      genCost *= 1.4;
+      genCost *= 1.2;
       genCost = Math.round(genCost);
       numGens += 1;
       genError = '';
@@ -90,7 +114,7 @@ class Game extends React.Component {
       this.setState({speedError});
     } else {
       availWins -= speedCost;
-      speedCost *= 1.6;
+      speedCost *= 1.4;
       speedCost = Math.round(speedCost);
       genSpeed *= 0.8;
       genSpeed = Math.round(genSpeed * 1000) / 1000;
@@ -109,10 +133,52 @@ class Game extends React.Component {
       this.setState({storageError});
     } else {
       availWins -= storageCost;
-      storageCost *= 2;
-      genStorage += 3;
+      storageCost *= 1.8;
+      storageCost = Math.round(storageCost);
+      genStorage += 5;
       storageError = '';
       this.setState({availWins, storageCost, genStorage, storageError});
+    }
+  }
+
+  buyVictory() {
+    let availWins = this.state.availWins;
+    let victoryCost = this.state.victoryCost;
+    let numVictories = this.state.numVictories;
+    let victoryError = this.state.victoryError;
+    if (availWins < victoryCost) {
+      victoryError = 'You do not have enough Win Energy';
+      this.setState({victoryError});
+    } else {
+      availWins -= victoryCost;
+      numVictories++;
+      victoryError = '';
+      this.setState({availWins, victoryCost, numVictories, victoryError});
+    }
+  }
+
+  buyRitual() {
+    let numRituals = this.state.numRituals;
+    let numVictories = this.state.numVictories;
+    let numGens = this.state.numGens;
+    let ritualError = this.state.ritualError;
+    let genCost = this.state.genCost;
+    if (numVictories < 3 && numGens < 25) {
+      ritualError = 'You are not prepared for the ritual.'
+      this.setState({ritualError});
+    } else if (numVictories < 3) {
+      ritualError = 'You need more energy for the ritual.'
+      this.setState({ritualError});
+    } else if (numGens < 25) {
+      ritualError = 'The ritual requires more sacrifices.'
+      this.setState({ritualError});
+    } else {
+      numGens -=25;
+      numVictories -=3;
+      numRituals++;
+      ritualError = '';
+      genCost = 50;
+      this.setState({numGens, genCost, ritualError, numRituals, numVictories})
     }
   }
 
@@ -171,8 +237,22 @@ class Game extends React.Component {
     }
   }
 
+  generateVictories() {
+    let numRituals = this.state.numRituals;
+    if (numRituals > 0) {
+      let availWins = this.state.availWins;
+      let totalWins = this.state.totalWins;
+      let numVictories = this.state.numVictories;
+      totalWins += (numRituals*25000);
+      availWins += (numRituals*25000);
+      numVictories++;
+      this.setState({totalWins, availWins, numVictories});
+    }
+  }
+
   componentDidMount() {
     genInterval = setInterval(this.generateWins, (this.state.genSpeed * 1000));
+    vicInterval = setInterval(this.generateVictories, 10000);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -187,6 +267,18 @@ class Game extends React.Component {
     }
     if (this.state.totalWins > 500 && this.state.curStage < 4) {
       this.setState({curStage: 4});
+    }
+    if (this.state.totalWins > 7500 && this.state.curStage < 5) {
+      this.setState({curStage: 5});
+    }
+    if (this.state.numVictories > 1 && this.state.curStage < 6) {
+      this.setState({curStage: 6});
+    }
+    if (this.state.numRituals > 0 && this.state.curStage < 7) {
+      this.setState({curStage: 7});
+    }
+    if (this.state.numRituals > 2 && this.state.curStage < 8) {
+      this.setState({curStage: 8});
     }
     if (this.state.genSpeed !== prevState.genSpeed) {
       clearInterval(genInterval);
@@ -205,7 +297,7 @@ class Game extends React.Component {
           <button className="button" onClick={this.onSubmit}>Login</button>
         </div>
       )
-    } else {
+    } else if (!this.state.ascended) {
       return (
         <div>
           <div className="playField">
@@ -219,7 +311,19 @@ class Game extends React.Component {
               curStage={this.state.curStage} genSpeed={this.state.genSpeed} ></Level3>
             <Level4 buyStorage={this.buyStorage} storageCost={this.state.storageCost} storageError={this.state.storageError}
               curStage={this.state.curStage} genStorage={this.state.genStorage} ></Level4>
+            <Level5 buyVictory={this.buyVictory} victoryCost={this.state.victoryCost} victoryError={this.state.victoryError}
+              curStage={this.state.curStage} numVictories={this.state.numVictories} ></Level5>
+            <Level6 buyRitual={this.buyRitual} ritualError={this.state.ritualError}
+              curStage={this.state.curStage} numVictories={this.state.numRituals} ></Level6>
+            <Level7 curStage={this.state.curStage} numRituals={this.state.numRituals} ></Level7>
+            <Level8 curStage={this.state.curStage} ascend={this.ascend}></Level8>
           </div>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <h1 className="header">{this.state.username} has ascended.</h1>
         </div>
       )
     }
