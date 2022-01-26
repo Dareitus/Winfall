@@ -451,8 +451,8 @@ class Game extends React.Component {
       return (
         <div>
           <div className="playField">
-            <h1 className="header">N.I.C.C. Iterface ~~ Total Wins: {this.state.totalWins} ~~ Available Wins: {this.state.availWins} ~~~ User: {this.state.username}</h1>
-            <h2 className="message">N.I.C.C. coverts coding wins into raw energy for enriching others. Win.</h2>
+            <h1 className="header">N.I.C.C. Interface ~~ Total Wins: {this.state.totalWins} ~~ Available Wins: {this.state.availWins} ~~~ User: {this.state.username}</h1>
+            <h2 className="message">N.I.C.C. converts coding wins into raw energy for enriching others. Win.</h2>
             <button className="buttonMain" onClick={this.win}>GENERATE WIN</button>
             <button className="buttonSave" onClick={this.save}>SAVE GAME</button>
             <Level1 buyMulti={this.buyMulti} multiCost={this.state.multiCost} multiError={this.state.multiError}
