@@ -36,6 +36,16 @@ html {
     padding: 10px;
 }
 
+.message {
+  text-align: center;
+  border-radius: 25px;
+  color: black;
+  background:rosybrown;
+  grid-area: message;
+  margin: 10px;
+  padding: 10px;
+}
+
 .l1head{
   grid-area: l1h;
   margin: 5px;
@@ -474,11 +484,12 @@ html {
   grid-template-rows: auto;
   grid-template-areas:
   "header header"
+  "message message"
   "button button"
-  "Level1 Level5"
-  "Level2 Level6"
-  "Level3 Level7"
-  "Level4 Level8"
+  "Level1 Level2"
+  "Level3 Level4"
+  "Level5 Level6"
+  "Level7 Level8"
   "footer footer";
   border-radius: 25px;
   background: rgb(77, 28, 28);
