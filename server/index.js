@@ -3,7 +3,7 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const User = require('../db/User');
+const User = require('../db');
 
 app.use(express.json());
 app.use(express.static(__dirname + '/../dist'));
@@ -12,10 +12,8 @@ app.use(express.static(__dirname + '/../dist'));
 //get user route
 app.get('/user', async (req, res) => {
   try {
-    console.log('0');
     const username = req.query.username;
     const data = await getUser(username);
-    console.log('3', data);
     res.status(200).send(data);
   } catch (err) {
     res.status(500).send(err);
@@ -25,11 +23,9 @@ app.get('/user', async (req, res) => {
 const getUser = async (username) => {
   try {
     //Database code goes here - check for existing user, create if new
-    //const data = await User.findOne({username: username}).exec();
-    const data = null;
-    console.log('1');
+    let data = await User.findOne({username: username}).exec();
     if (data === null) {
-      data = await User.insertMany({
+      data = await User.create({
         username: username,
         totalWins: 0,
         availWins: 0,
@@ -48,16 +44,32 @@ const getUser = async (username) => {
         ascended: false,
       });
     }
-    console.log('2');
     return data;
   } catch (err) {
     return err;
   }
 }
 
-app.post('/user', (req, res) => {
-  //take req and update database with new player state
+app.post('/user', async (req, res) => {
+  try {
+    let save = req.body;
+    const data = await saveUser(save);
+    res.status(200).send(data);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
+
+const saveUser = async (save) => {
+  try {
+    //Database code goes here - check for existing user, create if new
+    let filter = {username: save.username};
+    let data = await User.findOneAndUpdate(filter, save, {bew: true});
+    return data;
+  } catch (err) {
+    return err;
+  }
+}
 
 app.listen(port, () => {
   console.log(`Server is now running at port: ${port}`);

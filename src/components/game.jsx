@@ -53,10 +53,69 @@ class Game extends React.Component {
     this.buyRitual = this.buyRitual.bind(this);
     this.generateVictories = this.generateVictories.bind(this);
     this.ascend = this.ascend.bind(this);
+    this.save = this.save.bind(this);
+    this.replay = this.replay.bind(this);
   }
 
   ascend() {
     this.setState({ascended:true});
+    clearInterval(genInterval);
+    clearInterval(vicInterval);
+    let saveState = {
+      username: this.state.username,
+      totalWins: this.state.totalWins,
+      availWins: this.state.availWins,
+      curStage: this.state.curStage,
+      winMulti: this.state.winMulti,
+      multiCost: this.state.multiCost,
+      numGens: this.state.numGens,
+      genCost: this.state.genCost,
+      genSpeed: this.state.genSpeed,
+      speedCost: this.state.speedCost,
+      genStorage: this.state.genStorage,
+      storageCost: this.state.storageCost,
+      victoryCost: this.state.victoryCost,
+      numVictories: this.state.numVictories,
+      numRituals: this.state.numRituals,
+      ascended: true
+    };
+    axios.post('/user', saveState)
+    .then((res) => {
+
+    })
+    .catch((err) => {
+      console.log('Failed to save game', err);
+    });
+  }
+
+  replay() {
+    clearInterval(genInterval);
+    clearInterval(vicInterval);
+    let saveState = {
+      username: this.state.username,
+      totalWins: 0,
+      availWins: 0,
+      curStage: 0,
+      winMulti: 1,
+      multiCost: 10,
+      numGens: 0,
+      genCost: 50,
+      genSpeed: 2,
+      speedCost: 150,
+      genStorage: 5,
+      storageCost: 500,
+      victoryCost: 10000,
+      numVictories: 0,
+      numRituals: 0,
+      ascended: false,
+    };
+    axios.post('/user', saveState)
+    .then((res) => {
+      this.setState({loggedIn: false});
+    })
+    .catch((err) => {
+      console.log('Failed to save game', err);
+    });
   }
 
   buyMulti() {
@@ -208,8 +267,45 @@ class Game extends React.Component {
   login(username) {
     axios.get('/user', {params:{username}})
       .then((res) => {
-        console.log('Success Fetching User', res.body);
-        this.setState({ loggedIn: true});
+        let data = res.data;
+        let username = data.username;
+        let totalWins = data.totalWins;
+        let availWins = data.availWins;
+        let curStage = data.curStage;
+        let winMulti = data.winMulti;
+        let multiCost = data.multiCost;
+        let numGens = data.numGens;
+        let genCost = data.genCost;
+        let genSpeed = data.genSpeed;
+        let speedCost = data.speedCost;
+        let genStorage = data.genStorage;
+        let storageCost = data.storageCost;
+        let victoryCost = data.victoryCost;
+        let numVictories = data.numVictories;
+        let numRituals = data.numRituals;
+        let ascended = data.ascended;
+
+        this.setState({
+          username,
+          totalWins,
+          availWins,
+          curStage,
+          winMulti,
+          multiCost,
+          numGens,
+          genCost,
+          genSpeed,
+          speedCost,
+          genStorage,
+          storageCost,
+          victoryCost,
+          numVictories,
+          numRituals,
+          ascended,
+          loggedIn: true
+        });
+        genInterval = setInterval(this.generateWins, (this.state.genSpeed * 1000));
+        vicInterval = setInterval(this.generateVictories, 10000);
       })
       .catch((err) => {
         console.log('Error Fetching User Data', err);
@@ -250,9 +346,61 @@ class Game extends React.Component {
     }
   }
 
+  save() {
+    clearInterval(genInterval);
+    clearInterval(vicInterval);
+    let saveState = {
+      username: this.state.username,
+      totalWins: this.state.totalWins,
+      availWins: this.state.availWins,
+      curStage: this.state.curStage,
+      winMulti: this.state.winMulti,
+      multiCost: this.state.multiCost,
+      numGens: this.state.numGens,
+      genCost: this.state.genCost,
+      genSpeed: this.state.genSpeed,
+      speedCost: this.state.speedCost,
+      genStorage: this.state.genStorage,
+      storageCost: this.state.storageCost,
+      victoryCost: this.state.victoryCost,
+      numVictories: this.state.numVictories,
+      numRituals: this.state.numRituals,
+      ascended: this.state.ascended
+    };
+    axios.post('/user', saveState)
+    .then((res) => {
+      this.setState({
+        loggedIn: false,
+        entryError: '',
+        multiError: '',
+        speedError: '',
+        storageError: '',
+        victoryError: '',
+        ritualError: '',
+        username: '',
+        totalWins: 0,
+        availWins: 0,
+        curStage: 0,
+        winMulti: 1,
+        multiCost: 10,
+        numGens: 0,
+        genCost: 50,
+        genSpeed: 2,
+        speedCost: 150,
+        genStorage: 5,
+        storageCost: 500,
+        victoryCost: 10000,
+        numVictories: 0,
+        numRituals: 0,
+        ascended: false,
+      });
+    })
+    .catch((err) => {
+      console.log('Failed to save game', err);
+    });
+  }
+
   componentDidMount() {
-    genInterval = setInterval(this.generateWins, (this.state.genSpeed * 1000));
-    vicInterval = setInterval(this.generateVictories, 10000);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -303,20 +451,21 @@ class Game extends React.Component {
           <div className="playField">
           <h1 className="header">WINFALL ~~~ Total Wins: {this.state.totalWins} ~~~ Available Wins: {this.state.availWins} ~~~ User: {this.state.username}</h1>
           <button className="buttonMain" onClick={this.win}>GENERATE WIN</button>
-            <Level1 buyMulti={this.buyMulti} multiCost={this.state.multiCost} multiError={this.state.multiError}
+          <button className="buttonSave" onClick={this.save}>SAVE GAME</button>
+          <Level1 buyMulti={this.buyMulti} multiCost={this.state.multiCost} multiError={this.state.multiError}
               winMulti={this.state.winMulti} curStage={this.state.curStage}></Level1>
-            <Level2 buyGen={this.buyGen} genCost={this.state.genCost} genError={this.state.genError} numGens={this.state.numGens}
+          <Level2 buyGen={this.buyGen} genCost={this.state.genCost} genError={this.state.genError} numGens={this.state.numGens}
               curStage={this.state.curStage} genSpeed={this.state.genSpeed} winMulti={this.state.winMulti} genStorage={this.state.genStorage} ></Level2>
-            <Level3 buySpeed={this.buySpeed} speedCost={this.state.speedCost} speedError={this.state.speedError}
+          <Level3 buySpeed={this.buySpeed} speedCost={this.state.speedCost} speedError={this.state.speedError}
               curStage={this.state.curStage} genSpeed={this.state.genSpeed} ></Level3>
-            <Level4 buyStorage={this.buyStorage} storageCost={this.state.storageCost} storageError={this.state.storageError}
+          <Level4 buyStorage={this.buyStorage} storageCost={this.state.storageCost} storageError={this.state.storageError}
               curStage={this.state.curStage} genStorage={this.state.genStorage} ></Level4>
-            <Level5 buyVictory={this.buyVictory} victoryCost={this.state.victoryCost} victoryError={this.state.victoryError}
+          <Level5 buyVictory={this.buyVictory} victoryCost={this.state.victoryCost} victoryError={this.state.victoryError}
               curStage={this.state.curStage} numVictories={this.state.numVictories} ></Level5>
-            <Level6 buyRitual={this.buyRitual} ritualError={this.state.ritualError}
+          <Level6 buyRitual={this.buyRitual} ritualError={this.state.ritualError}
               curStage={this.state.curStage} numVictories={this.state.numRituals} ></Level6>
-            <Level7 curStage={this.state.curStage} numRituals={this.state.numRituals} ></Level7>
-            <Level8 curStage={this.state.curStage} ascend={this.ascend}></Level8>
+          <Level7 curStage={this.state.curStage} numRituals={this.state.numRituals} ></Level7>
+          <Level8 curStage={this.state.curStage} ascend={this.ascend}></Level8>
           </div>
         </div>
       )
@@ -324,6 +473,7 @@ class Game extends React.Component {
       return (
         <div>
           <h1 className="header">{this.state.username} has ascended.</h1>
+          <button className="buttonMain" onClick={this.replay}>Become Mortal Once More</button>
         </div>
       )
     }

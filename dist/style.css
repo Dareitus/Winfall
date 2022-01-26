@@ -457,6 +457,17 @@ html {
   "l8b l8b";
 }
 
+.buttonSave {
+  background-color: maroon;
+  grid-area: footer;
+  border-radius: 25px;
+  color:seashell;
+  width: 200px;
+  height: 40px;
+  margin-left: 43%;
+  font-weight:bold;
+}
+
 .playField {
   display: grid;
   grid-template-columns: 50%;
